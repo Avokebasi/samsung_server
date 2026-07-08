@@ -29,3 +29,9 @@ fun ApplicationCall.requireBreeder() {
         throw IllegalArgumentException("Доступ только для заводчика")
     }
 }
+
+fun ApplicationCall.requireBuyer() {
+    if (principalRole() != "BUYER") {
+        throw IllegalArgumentException("Доступ только для покупателя")
+    }
+}
