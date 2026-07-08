@@ -12,6 +12,7 @@ import com.cattery.routes.catMaleRoutes
 import com.cattery.routes.kittenRoutes
 import com.cattery.routes.litterRoutes
 import com.cattery.routes.reservationRoutes
+import com.cattery.routes.userRoutes
 import com.cattery.security.JwtService
 import com.cattery.services.AuthService
 import com.cattery.services.CatFemaleService
@@ -46,6 +47,7 @@ fun Application.configureRouting(jwtService: JwtService) {
             call.respondText("Cattery API")
         }
         authRoutes(authService, userService)
+        userRoutes(userService)
         catFemaleRoutes(catFemaleService, litterService)
         catMaleRoutes(catMaleService, litterService)
         litterRoutes(litterService, kittenService)
