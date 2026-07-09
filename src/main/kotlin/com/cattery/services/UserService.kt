@@ -11,6 +11,9 @@ class UserService(
         userDao.findById(userId) ?: throw IllegalArgumentException("Пользователь не найден")
 
     fun updateAvatar(userId: Int, avatarUrl: String?): User {
+        if (avatarUrl.isNullOrBlank()) {
+            throw IllegalArgumentException("Аватар не задан")
+        }
         if (!userDao.updateAvatar(userId, avatarUrl)) {
             throw IllegalArgumentException("Не удалось обновить аватар")
         }
