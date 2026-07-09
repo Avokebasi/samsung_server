@@ -63,7 +63,10 @@ class ReservationDao {
     }
 
     fun findForBuyer(buyerId: Int): List<ReservationDetailResponse> = transaction {
-        (ReservationsTable innerJoin KittensTable innerJoin LittersTable innerJoin UsersTable)
+        ReservationsTable
+            .join(KittensTable, JoinType.INNER, ReservationsTable.kittenId, KittensTable.id)
+            .join(LittersTable, JoinType.INNER, KittensTable.litterId, LittersTable.id)
+            .join(UsersTable, JoinType.INNER, ReservationsTable.buyerId, UsersTable.id)
             .select(
                 ReservationsTable.id,
                 ReservationsTable.kittenId,
@@ -78,15 +81,17 @@ class ReservationDao {
             )
             .where {
                 (ReservationsTable.buyerId eq buyerId) and
-                    (ReservationsTable.status eq ReservationStatus.ACTIVE.name) and
-                    (UsersTable.id eq ReservationsTable.buyerId)
+                    (ReservationsTable.status eq ReservationStatus.ACTIVE.name)
             }
             .orderBy(ReservationsTable.reservedAt to SortOrder.DESC)
             .map { it.toDetail() }
     }
 
     fun findForBreeder(ownerId: Int): List<ReservationDetailResponse> = transaction {
-        (ReservationsTable innerJoin KittensTable innerJoin LittersTable innerJoin UsersTable)
+        ReservationsTable
+            .join(KittensTable, JoinType.INNER, ReservationsTable.kittenId, KittensTable.id)
+            .join(LittersTable, JoinType.INNER, KittensTable.litterId, LittersTable.id)
+            .join(UsersTable, JoinType.INNER, ReservationsTable.buyerId, UsersTable.id)
             .select(
                 ReservationsTable.id,
                 ReservationsTable.kittenId,
@@ -101,8 +106,7 @@ class ReservationDao {
             )
             .where {
                 (LittersTable.ownerId eq ownerId) and
-                    (ReservationsTable.status eq ReservationStatus.ACTIVE.name) and
-                    (UsersTable.id eq ReservationsTable.buyerId)
+                    (ReservationsTable.status eq ReservationStatus.ACTIVE.name)
             }
             .orderBy(ReservationsTable.reservedAt to SortOrder.DESC)
             .map { it.toDetail() }
