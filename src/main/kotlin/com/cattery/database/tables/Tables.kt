@@ -23,6 +23,7 @@ object CatFemalesTable : Table("cat_females") {
     val birthDate = date("birth_date")
     val matingDate = date("mating_date").nullable()
     val birthDueDate = date("birth_due_date").nullable()
+    val color = varchar("color", 200)
     val photoUrls = text("photo_urls")
     val createdAt = timestamp("created_at")
 
@@ -34,6 +35,7 @@ object CatMalesTable : Table("cat_males") {
     val ownerId = integer("owner_id").references(UsersTable.id)
     val name = varchar("name", 200)
     val birthDate = date("birth_date")
+    val color = varchar("color", 200)
     val photoUrls = text("photo_urls")
     val createdAt = timestamp("created_at")
 

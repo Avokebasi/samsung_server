@@ -57,6 +57,7 @@ class CatFemaleDao {
         ownerId: Int,
         name: String,
         birthDate: LocalDate,
+        color: String,
         matingDate: LocalDate?,
         birthDueDate: LocalDate?,
         photoUrls: List<String>,
@@ -65,6 +66,7 @@ class CatFemaleDao {
             it[CatFemalesTable.ownerId] = ownerId
             it[CatFemalesTable.name] = name
             it[CatFemalesTable.birthDate] = birthDate
+            it[CatFemalesTable.color] = color
             it[CatFemalesTable.matingDate] = matingDate
             it[CatFemalesTable.birthDueDate] = birthDueDate
             it[CatFemalesTable.photoUrls] = PhotoUrlsJson.encode(photoUrls)
@@ -78,6 +80,7 @@ class CatFemaleDao {
         ownerId: Int,
         name: String,
         birthDate: LocalDate,
+        color: String,
         matingDate: LocalDate?,
         birthDueDate: LocalDate?,
         photoUrls: List<String>,
@@ -85,6 +88,7 @@ class CatFemaleDao {
         val updated = CatFemalesTable.update({ (CatFemalesTable.id eq id) and (CatFemalesTable.ownerId eq ownerId) }) {
             it[CatFemalesTable.name] = name
             it[CatFemalesTable.birthDate] = birthDate
+            it[CatFemalesTable.color] = color
             it[CatFemalesTable.matingDate] = matingDate
             it[CatFemalesTable.birthDueDate] = birthDueDate
             it[CatFemalesTable.photoUrls] = PhotoUrlsJson.encode(photoUrls)
@@ -107,6 +111,7 @@ class CatFemaleDao {
         ownerId = this[CatFemalesTable.ownerId].toLong(),
         name = this[CatFemalesTable.name],
         birthDate = this[CatFemalesTable.birthDate].toString(),
+        color = this[CatFemalesTable.color],
         matingDate = this[CatFemalesTable.matingDate]?.toString(),
         birthDueDate = this[CatFemalesTable.birthDueDate]?.toString(),
         photoUrls = PhotoUrlsJson.decode(this[CatFemalesTable.photoUrls]),

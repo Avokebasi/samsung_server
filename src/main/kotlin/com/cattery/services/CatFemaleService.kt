@@ -22,6 +22,8 @@ class CatFemaleService(
     fun create(ownerId: Int, request: SaveCatFemaleRequest): CatFemale {
         val name = request.name.trim()
         if (name.isBlank()) throw IllegalArgumentException("Укажите кличку")
+        val color = request.color.trim()
+        if (color.isBlank()) throw IllegalArgumentException("Укажите окрас")
         val birthDate = LocalDate.parse(request.birthDate)
         val matingDate = request.matingDate?.takeIf { it.isNotBlank() }?.let { LocalDate.parse(it) }
         val birthDueDate = MatingDates.birthDueDate(matingDate)
@@ -29,6 +31,7 @@ class CatFemaleService(
             ownerId = ownerId,
             name = name,
             birthDate = birthDate,
+            color = color,
             matingDate = matingDate,
             birthDueDate = birthDueDate,
             photoUrls = request.photoUrls,
@@ -38,6 +41,8 @@ class CatFemaleService(
     fun update(ownerId: Int, id: Int, request: SaveCatFemaleRequest): CatFemale {
         val name = request.name.trim()
         if (name.isBlank()) throw IllegalArgumentException("Укажите кличку")
+        val color = request.color.trim()
+        if (color.isBlank()) throw IllegalArgumentException("Укажите окрас")
         val birthDate = LocalDate.parse(request.birthDate)
         val matingDate = request.matingDate?.takeIf { it.isNotBlank() }?.let { LocalDate.parse(it) }
         val birthDueDate = MatingDates.birthDueDate(matingDate)
@@ -46,6 +51,7 @@ class CatFemaleService(
             ownerId = ownerId,
             name = name,
             birthDate = birthDate,
+            color = color,
             matingDate = matingDate,
             birthDueDate = birthDueDate,
             photoUrls = request.photoUrls,

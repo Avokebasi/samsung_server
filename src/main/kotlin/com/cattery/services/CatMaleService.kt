@@ -21,11 +21,14 @@ class CatMaleService(
     fun create(ownerId: Int, request: SaveCatMaleRequest): CatMale {
         val name = request.name.trim()
         if (name.isBlank()) throw IllegalArgumentException("Укажите кличку")
+        val color = request.color.trim()
+        if (color.isBlank()) throw IllegalArgumentException("Укажите окрас")
         val birthDate = LocalDate.parse(request.birthDate)
         return catMaleDao.create(
             ownerId = ownerId,
             name = name,
             birthDate = birthDate,
+            color = color,
             photoUrls = request.photoUrls,
         )
     }
@@ -33,12 +36,15 @@ class CatMaleService(
     fun update(ownerId: Int, id: Int, request: SaveCatMaleRequest): CatMale {
         val name = request.name.trim()
         if (name.isBlank()) throw IllegalArgumentException("Укажите кличку")
+        val color = request.color.trim()
+        if (color.isBlank()) throw IllegalArgumentException("Укажите окрас")
         val birthDate = LocalDate.parse(request.birthDate)
         return catMaleDao.update(
             id = id,
             ownerId = ownerId,
             name = name,
             birthDate = birthDate,
+            color = color,
             photoUrls = request.photoUrls,
         ) ?: throw IllegalArgumentException("Кот не найден")
     }

@@ -57,12 +57,14 @@ class CatMaleDao {
         ownerId: Int,
         name: String,
         birthDate: LocalDate,
+        color: String,
         photoUrls: List<String>,
     ): CatMale = transaction {
         val id = CatMalesTable.insert {
             it[CatMalesTable.ownerId] = ownerId
             it[CatMalesTable.name] = name
             it[CatMalesTable.birthDate] = birthDate
+            it[CatMalesTable.color] = color
             it[CatMalesTable.photoUrls] = PhotoUrlsJson.encode(photoUrls)
             it[createdAt] = Instant.now()
         } get CatMalesTable.id
@@ -74,11 +76,13 @@ class CatMaleDao {
         ownerId: Int,
         name: String,
         birthDate: LocalDate,
+        color: String,
         photoUrls: List<String>,
     ): CatMale? = transaction {
         val updated = CatMalesTable.update({ (CatMalesTable.id eq id) and (CatMalesTable.ownerId eq ownerId) }) {
             it[CatMalesTable.name] = name
             it[CatMalesTable.birthDate] = birthDate
+            it[CatMalesTable.color] = color
             it[CatMalesTable.photoUrls] = PhotoUrlsJson.encode(photoUrls)
         }
         if (updated == 0) null else findById(id)
@@ -99,6 +103,7 @@ class CatMaleDao {
         ownerId = this[CatMalesTable.ownerId].toLong(),
         name = this[CatMalesTable.name],
         birthDate = this[CatMalesTable.birthDate].toString(),
+        color = this[CatMalesTable.color],
         photoUrls = PhotoUrlsJson.decode(this[CatMalesTable.photoUrls]),
     )
 }

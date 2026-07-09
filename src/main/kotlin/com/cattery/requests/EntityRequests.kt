@@ -7,6 +7,7 @@ import kotlinx.serialization.Serializable
 data class SaveCatFemaleRequest(
     val name: String,
     val birthDate: String,
+    val color: String,
     val matingDate: String? = null,
     val photoUrls: List<String> = emptyList(),
 )
@@ -15,6 +16,7 @@ data class SaveCatFemaleRequest(
 data class SaveCatMaleRequest(
     val name: String,
     val birthDate: String,
+    val color: String,
     val photoUrls: List<String> = emptyList(),
 )
 

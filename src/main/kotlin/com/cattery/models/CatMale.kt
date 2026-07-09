@@ -8,5 +8,6 @@ data class CatMale(
     val ownerId: Long,
     val name: String,
     val birthDate: String,
+    val color: String = "",
     val photoUrls: List<String> = emptyList(),
 )
